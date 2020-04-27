@@ -63,11 +63,11 @@ const handleNoteSave = function() {
 };
 
 // Delete the clicked note
-var handleNoteDelete = function(event) {
+const handleNoteDelete = function(event) {
     // prevents the click listener for the list from being called when the button inside of it is clicked
     event.stopPropagation();
   
-    var note = $(this)
+    let note = $(this)
       .parent(".list-group-item")
       .data();
   
@@ -82,20 +82,20 @@ var handleNoteDelete = function(event) {
   };
   
   // Sets the activeNote and displays it
-  var handleNoteView = function() {
+  const handleNoteView = function() {
     activeNote = $(this).data();
     renderActiveNote();
   };
   
   // Sets the activeNote to and empty object and allows the user to enter a new note
-  var handleNewNoteView = function() {
+ const handleNewNoteView = function() {
     activeNote = {};
     renderActiveNote();
   };
   
   // If a note's title or text are empty, hide the save button
   // Or else show it
-  var handleRenderSaveBtn = function() {
+  const handleRenderSaveBtn = function() {
     if (!$noteTitle.val().trim() || !$noteText.val().trim()) {
       $saveNoteBtn.hide();
     } else {
@@ -104,7 +104,7 @@ var handleNoteDelete = function(event) {
   };
   
   // Render's the list of note titles
-  var renderNoteList = function(notes) {
+  const renderNoteList = function(notes) {
     $noteList.empty();
   
     var noteListItems = [];
@@ -126,7 +126,7 @@ var handleNoteDelete = function(event) {
   };
   
   // Gets notes from the db and renders them to the sidebar
-  var getAndRenderNotes = function() {
+  const getAndRenderNotes = function() {
     return getNotes().then(function(data) {
       renderNoteList(data);
     });
