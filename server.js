@@ -1,21 +1,21 @@
-import express, { static, urlencoded, json } from "express";
-import { join } from "path";
-import { readFileSync, writeFileSync } from "fs";
+const express = require ("express")
+const path = require ("path")
+const fs = require ("fs")
 
 const app = express();
 const port = 9000;
-const mainDir = join(__dirname, "/public");
+const mainDir = path.join(__dirname, "/public");
 
-app.use(static('public'));
-app.use(urlencoded({extended: true}));
-app.use(json());
+app.use(express.static('public'));
+app.use(express.urlencoded({extended: true}));
+app.use(express.json());
 
 app.get("/notes", function(req, res) {
-    res.sendFile(join(mainDir, "notes.html"));
+    res.sendFile(path.join(mainDir, "notes.html"));
 });
 
 app.get("/api/notes", function(req, res) {
-    res.sendFile(join(__dirname, "/db/db.json"));
+    res.sendFile(path.join(__dirname, "/db/db.json"));
 });
 
 app.get("/api/notes/:id", function(req, res) {
@@ -24,13 +24,15 @@ app.get("/api/notes/:id", function(req, res) {
 });
 
 app.get("*", function(req, res) {
-    res.sendFile(join(mainDir, "index.html"));
+    res.sendFile(path.join(mainDir, "index.html"));
 });
 
 app.post("/api/notes", function(req, res) {
     let savedNotes = JSON.parse(readFileSync("./db/db.json", "utf8"));
+     //console.log(savedNotes)
+    
     let newNote = req.body;
-    let uniqueID = (savedNotes.length).toString();
+    let uniqueID = (savedNotes.length);
     newNote.id = uniqueID;
     savedNotes.push(newNote);
 
