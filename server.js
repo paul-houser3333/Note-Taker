@@ -3,7 +3,7 @@ const path = require ("path")
 const fs = require ("fs")
 
 const app = express();
-const port = 9000;
+const port = process.env.PORT || 9000;
 const mainDir = path.join(__dirname + "/public");
 
 let notesData = []
